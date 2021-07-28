@@ -1,25 +1,31 @@
 import React from 'react';
 import logo from './logo.svg';
+
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import './App.css';
+import Header from './components/Header/Header';
+import Home from './pages/Home/Home';
+import { Col, Container, Row } from 'react-bootstrap';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <div style={{width: '90%', maxWidth: '1300px', margin: 'auto'}}>
+    <Container fluid>
+      <Row>
+       <Col lg={10} md={10} sm={10}>
+          <BrowserRouter>
+            <Header />
+            <Route path="/">
+              <Home />
+            </Route>
+          </BrowserRouter>
+        </Col>
+      </Row>
+          
+        </Container>
+
+     </div>
+
   );
 }
 

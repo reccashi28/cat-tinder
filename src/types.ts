@@ -1,4 +1,5 @@
 export const GET_CATEGORIES = 'GET_CATEGORIES'
+export const GET_CATEGORIES_IMAGES = 'GET_CATEGORIES_IMAGES'
 
 
 export type User = {
@@ -13,10 +14,12 @@ export type UserState = {
 }
 
 export type Categories = {
-    category: string
+    name: string
+    id: number
 }
 export type CatState = {
     catsCategories: Categories[]
+    image: string
 }
 
 export type getCatCategories = {
@@ -26,7 +29,13 @@ export type getCatCategories = {
     }
 }
 
-export type CatActions = getCatCategories
+export type getCatCategoryImages = {
+    type: typeof GET_CATEGORIES_IMAGES,
+    payload: {
+        data: string
+    }
+}
+export type CatActions = getCatCategories | getCatCategoryImages
 
 export type AppState = {
     cats: CatState

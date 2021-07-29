@@ -1,27 +1,23 @@
-import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import React from 'react'
 
-import Category from '../../components/Category/Category'
-import { fetchCategories } from '../../redux/actions/cats';
-
-import { Col, Container, Row } from 'react-bootstrap'
+import { Grid, Typography } from '@material-ui/core';
+import useCategories from '../../hooks/useCategories';
+import Category from '../../components/Category/Category';
 
 function Home() {
-    const dispatch = useDispatch();
-    
-    useEffect( () => {
-        dispatch(fetchCategories())
-    }, [])
-    
+    const categories = useCategories();
+
     return (
-        <Container>
-            <Row>
-                <Col>
-                    <h3>Select a Category</h3>
-                </Col>
-            </Row>
-            <Category />
-        </Container>
+        <Grid container>
+            <Grid item xs={12}>
+                <Typography variant="h6" component="h4">Select a Category</Typography>
+            </Grid>
+            <Grid item xs={12}> 
+                {categories.map ( category => {
+                return <Category key={category.id} name={category.name} id={category.id}/>
+                })}
+            </Grid>            
+        </Grid>
     )
 }
 

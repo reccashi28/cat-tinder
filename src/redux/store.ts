@@ -8,7 +8,8 @@ let composeEnhancers = compose;
 
 const initState: AppState = {
     cats: {
-        catsCategories: []
+        catsCategories: [],
+        image: ''
     }
 }
 

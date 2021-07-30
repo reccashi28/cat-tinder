@@ -1,11 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
 
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
+
 import './App.css';
 import Header from './components/Header/Header';
 import Home from './pages/Home/Home';
 import { Col, Container, Row } from 'react-bootstrap';
+import SelectedCategory from './components/SelectedCategory/SelectedCategory';
+import Statistics from './components/Statistics/Statistics';
 
 function App() {
   return (
@@ -15,9 +17,17 @@ function App() {
        <Col lg={10} md={10} sm={10}>
           <BrowserRouter>
             <Header />
-            <Route path="/">
-              <Home />
-            </Route>
+              <Switch>
+                <Route exact path="/">
+                  <Home />
+                </Route>
+                <Route path="/categorydetails">
+                  <SelectedCategory />
+                </Route>
+                <Route path="/statistics">
+                  <Statistics />
+                </Route>
+            </Switch>
           </BrowserRouter>
         </Col>
       </Row>

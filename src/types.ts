@@ -1,5 +1,8 @@
 export const GET_CATEGORIES = 'GET_CATEGORIES'
 export const GET_CATEGORIES_IMAGES = 'GET_CATEGORIES_IMAGES'
+export const GET_SELECTED_CATEGORY_IMAGES = 'GET_SELECTED_CATEGORY_IMAGES'
+export const GET_CATEGORY_SELECTED = 'GET_CATEGORY_SELECTED'
+
 
 
 export type User = {
@@ -17,10 +20,6 @@ export type Categories = {
     name: string
     id: number
 }
-export type CatState = {
-    catsCategories: Categories[]
-    image: string
-}
 
 export type getCatCategories = {
     type: typeof GET_CATEGORIES,
@@ -35,7 +34,32 @@ export type getCatCategoryImages = {
         data: string
     }
 }
-export type CatActions = getCatCategories | getCatCategoryImages
+
+export type getSelectedCategoryImages = {
+    type: typeof GET_SELECTED_CATEGORY_IMAGES,
+    payload: {
+        data: string[]
+    }
+}
+
+export type getCategorySelected = {
+    type: typeof GET_CATEGORY_SELECTED,
+    payload: {
+        data: string
+    }
+}
+
+export type CatActions = getCatCategories | getCatCategoryImages | getSelectedCategoryImages | getCategorySelected
+
+export type CatState = {
+    catsCategories: Categories[]
+    selectedCategoryImages: string[]
+    categorySelected: string
+    catsSeen: number
+    catSkipped: number
+    catDidNotPet: number
+    catPetted: number
+}
 
 export type AppState = {
     cats: CatState

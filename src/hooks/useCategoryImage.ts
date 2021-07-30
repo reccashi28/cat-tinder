@@ -1,6 +1,5 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { Categories } from '../types'
+import { useEffect, useState } from 'react'
 
 
 function useCategoryImage(id: number): string {

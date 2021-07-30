@@ -1,25 +1,23 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import useCategoryImage from '../../hooks/useCategoryImage';
 import { Box, Button } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+import { fetchCatsByCategory } from '../../redux/actions';
+import { Link } from 'react-router-dom';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const useStyles = makeStyles({
     root: {
       flexGrow: 1,
-    },
-    paper: {
-      padding: theme.spacing(2),
-      textAlign: 'center',
-      color: theme.palette.text.secondary,
+      fontFamily: 'Inter',
     },
     button: {
       position: 'absolute',
       bottom: "16px",
       alignSelf: 'center',
+      textDecoration: 'none'
     },
     categoryImg: {
       position: 'relative',
@@ -27,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
     img: {
       width: '90%'
     }
-  }),
+   }
 );
 
 type CategoryPropType = {
@@ -38,14 +36,15 @@ type CategoryPropType = {
 function Category({name, id}: CategoryPropType) {
     const classes = useStyles();  
     const image = useCategoryImage(id);
+    const dispatch = useDispatch();
 
     return (
         <div className={classes.root}>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={3}>
+          <Grid item xs={12} sm={4}>
             <Box className={classes.categoryImg} display='flex' flexDirection='column'>
               <img className={classes.img} src={image} alt={name} />
-              <Button variant='contained' className={classes.button}>{name}</Button>
+              <Link to={"/categorydetails"} className={classes.button} ><Button variant='contained' onClick={() => dispatch(fetchCatsByCategory(id, name))}>{name}</Button></Link>
             </Box>
           </Grid>      
         </Grid>

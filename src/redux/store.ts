@@ -9,7 +9,12 @@ let composeEnhancers = compose;
 const initState: AppState = {
     cats: {
         catsCategories: [],
-        image: ''
+        selectedCategoryImages: [],
+        categorySelected: "",
+        catsSeen: 0,
+        catSkipped: 0,
+        catDidNotPet: 0,
+        catPetted: 0
     }
 }
 

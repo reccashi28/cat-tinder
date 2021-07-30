@@ -12,7 +12,7 @@ function Home() {
             <Grid item xs={12}>
                 <Typography variant="h6" component="h4">Select a Category</Typography>
             </Grid>
-            <Grid item xs={12}> 
+            <Grid item xs={12} md={6} > 
                 {categories.map ( category => {
                 return <Category key={category.id} name={category.name} id={category.id}/>
                 })}

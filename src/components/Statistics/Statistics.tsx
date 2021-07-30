@@ -6,8 +6,9 @@ import skip from '../../assets/Skip.svg'
 
 import { Box, Button, Grid, makeStyles, Typography } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getCategorySelected } from '../../redux/actions'
+import { AppState } from '../../types'
 
 const useStyles = makeStyles({
     root: {
@@ -45,6 +46,8 @@ function Statistics() {
     const classes = useStyles();  
     const history = useHistory();
     const dispatch = useDispatch();
+    const { catSkipped } = useSelector( (state: AppState) => state.cats)
+    console.log(catSkipped, "skipped")
     return (
         <Grid container justifyContent="center" spacing={2} alignItems='center' className={classes.root}>
             <Grid item>
@@ -64,7 +67,7 @@ function Statistics() {
                     <Box className={classes.statsBoxes}  border={1} borderColor="grey.500">
                         <img src={skip} alt="Didn't Pet"/>
                         <Box display='flex' alignItems='flex-end' flexDirection='column'> 
-                            <Box className={classes.text} fontWeight="fontWeightBold"> number</Box>
+                            <Box className={classes.text} fontWeight="fontWeightBold"> {catSkipped}</Box>
                             <Box className={classes.text} fontWeight="fontWeightBold">Cats you skipped</Box>
                         </Box>
                     </Box>

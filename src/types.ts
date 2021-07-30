@@ -7,10 +7,6 @@ export const GET_TOTAL_CATDIDNOTPET= 'GET_TOTAL_CATDIDNOTPET'
 export const GET_TOTAL_CATSKIPPED= 'GET_TOTAL_CATSKIPPED'
 export const GET_TOTAL_CATPET= 'GET_TOTAL_CATPET'
 
-
-
-
-
 export type User = {
     userName: string
     catsSeen: number

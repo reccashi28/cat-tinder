@@ -46,8 +46,8 @@ function Statistics() {
     const classes = useStyles();  
     const history = useHistory();
     const dispatch = useDispatch();
-    const { catSkipped } = useSelector( (state: AppState) => state.cats)
-    console.log(catSkipped, "skipped")
+    const { catSkipped, catDidNotPet, catPetted } = useSelector( (state: AppState) => state.cats)
+
     return (
         <Grid container justifyContent="center" spacing={2} alignItems='center' className={classes.root}>
             <Grid item>
@@ -58,7 +58,7 @@ function Statistics() {
                     <Box className={classes.statsBoxes} border={1} borderColor="grey.500">
                         <img src={dontPet} alt="Didn't Pet"/>
                         <Box display='flex'  alignItems='flex-end' flexDirection='column' justifyContent="center"> 
-                                <Box className={classes.text} fontWeight="fontWeightBold"> number</Box>
+                                <Box className={classes.text} fontWeight="fontWeightBold"> {catDidNotPet}</Box>
                                 <Box className={classes.text} fontWeight="fontWeightBold"> Cats you didn't pet</Box>
                         </Box>
                     </Box>
@@ -76,7 +76,7 @@ function Statistics() {
                     <Box className={classes.statsBoxes}  border={1} borderColor="grey.500">
                         <img src={pet} alt="Didn't Pet"/>
                         <Box display='flex' alignItems='flex-end' flexDirection='column'> 
-                            <Box className={classes.text} fontWeight="fontWeightBold"> number</Box>
+                            <Box className={classes.text} fontWeight="fontWeightBold"> {catPetted}</Box>
                             <Box className={classes.text} fontWeight="fontWeightBold">Cats you petted</Box>
                         </Box>
                     </Box>

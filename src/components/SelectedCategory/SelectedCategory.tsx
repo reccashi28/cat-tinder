@@ -9,7 +9,7 @@ import skip from '../../assets/Skip.svg'
 
 import { Box, Button, Grid, makeStyles, Typography } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
-import { getCategorySelected, getTotalCatSkipped } from '../../redux/actions'
+import { getCategorySelected, getTotalCatDidNotPet, getTotalCatPet, getTotalCatSkipped } from '../../redux/actions'
 
 const useStyles = makeStyles({
     imageContainer: {
@@ -69,7 +69,10 @@ function SelectedCategory() {
         </Box>
         <Grid container spacing={3}>
             <Grid item >
-                <Button size="small" color="primary" onClick={() => handleNextImage()}>
+                <Button size="small" color="primary" onClick={() => {
+                    dispatch(getTotalCatDidNotPet(1))
+                    handleNextImage()                    
+                }}>
                     <Box className={classes.actionButton}>
                         <img src={dontPet} alt="Dont Pet"/>
                         <Typography className={classes.btnName}>Don't Pet it!</Typography>
@@ -85,7 +88,10 @@ function SelectedCategory() {
                         <Typography className={classes.btnName}>Skip it!</Typography>
                     </Box>
                 </Button>
-                <Button size="small" color="primary" onClick={() => handleNextImage()}>
+                <Button size="small" color="primary" onClick={() => {
+                    dispatch(getTotalCatPet(1))
+                    handleNextImage()
+                }}>
                     <Box className={classes.actionButton}>
                         <img src={pet} alt="Pet"/>
                         <Typography className={classes.btnName}>Pet it!</Typography>

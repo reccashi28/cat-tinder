@@ -9,7 +9,8 @@ import skip from '../../assets/Skip.svg'
 
 import { Box, Button, Grid, makeStyles, Typography } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
-import { getCategorySelected, getTotalCatDidNotPet, getTotalCatPet, getTotalCatSkipped } from '../../redux/actions'
+import { getCategorySelected, getTotalCatDidNotPet, getTotalCatPet, getTotalCatSeen, getTotalCatSkipped } from '../../redux/actions'
+import useCategories from '../../hooks/useCategories'
 
 const useStyles = makeStyles({
     imageContainer: {
@@ -45,14 +46,21 @@ function SelectedCategory() {
     const classes = useStyles();
     const history = useHistory();
     const dispatch = useDispatch();
-    const { selectedCategoryImages } = useSelector( (state: AppState) => state.cats)
-    const [index, setIndex] = useState<number>(0)
+    const { selectedCategoryImages, categorySelected } = useSelector( (state: AppState) => state.cats)
+    const [ index, setIndex ] = useState<number>(0);
 
+    let selectedCategoryForStatisticComponent = {
+        ...categorySelected,
+        name: "statistics"
+    }
+
+    // console.log(id, "params")
     const handleNextImage = () => {
         if(index < selectedCategoryImages.length -1) {
             setIndex(prev => (prev + 1) )
         } else {
-            dispatch(getCategorySelected("statistics"))
+            dispatch(getTotalCatSeen(10))
+            dispatch(getCategorySelected(selectedCategoryForStatisticComponent))
            history.push(`/statistics`)
         }
       };

@@ -12,7 +12,7 @@ function Header() {
                 <img src={logo} alt="logo"/>
             </div>
             <div>
-                {categorySelected ? <h5>{">"}{categorySelected}</h5> : ""}
+                {categorySelected.name ? <h5>{">"}{categorySelected.name}</h5> : ""}
             </div>
         </div>
     )

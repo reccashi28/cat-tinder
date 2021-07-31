@@ -13,7 +13,7 @@ function useCategoryImage(id: number): string {
         axios.get(`https://api.thecatapi.com/v1/images/search?category_ids=${id}`)
             .then( res => {
                 let data: any[] = res.data
-            data.map( d => setImgUrl(d.url))
+                data.map( d => setImgUrl(d.url))
         })
         .catch( e => console.log(e))       
     }

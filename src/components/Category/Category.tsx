@@ -44,7 +44,7 @@ function Category({name, id}: CategoryPropType) {
           <Grid item xs={12} sm={4}>
             <Box className={classes.categoryImg} display='flex' flexDirection='column'>
               <img className={classes.img} src={image} alt={name} />
-              <Link to={"/categorydetails"} className={classes.button} ><Button variant='contained' onClick={() => dispatch(fetchCatsByCategory(id, name))}>{name}</Button></Link>
+              <Link to={`/categorydetails/${name}/${id}`} className={classes.button} ><Button variant='contained' onClick={() => dispatch(fetchCatsByCategory(id, name))}>{name}</Button></Link>
             </Box>
           </Grid>      
         </Grid>

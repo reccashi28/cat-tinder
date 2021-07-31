@@ -2,7 +2,6 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { Categories } from '../types'
 
-
 function useCategories() {
     const [categories, setCategories] = useState<Categories[]>([])
 
@@ -18,7 +17,6 @@ function useCategories() {
         .catch( e => console.log(e))       
     }
 
-    console.log(categories)
     return categories;
 }
 

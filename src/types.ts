@@ -7,34 +7,10 @@ export const GET_TOTAL_CATDIDNOTPET= 'GET_TOTAL_CATDIDNOTPET'
 export const GET_TOTAL_CATSKIPPED= 'GET_TOTAL_CATSKIPPED'
 export const GET_TOTAL_CATPET= 'GET_TOTAL_CATPET'
 
-export type User = {
-    userName: string
-    catsSeen: number
-    catsLiked: number
-    catsDisliked: number
-    catsSkipped: number
-}
-export type UserState = {
-    userData: User[]
-}
 
 export type Categories = {
     name: string
-    id: number
-}
-
-export type getCatCategories = {
-    type: typeof GET_CATEGORIES,
-    payload: {
-        data: Categories[]
-    }
-}
-
-export type getCatCategoryImages = {
-    type: typeof GET_CATEGORIES_IMAGES,
-    payload: {
-        data: string
-    }
+    id: number | null
 }
 
 export type getSelectedCategoryImages = {
@@ -47,7 +23,7 @@ export type getSelectedCategoryImages = {
 export type getCategorySelected = {
     type: typeof GET_CATEGORY_SELECTED,
     payload: {
-        data: string
+        data: Categories
     }
 }
 
@@ -78,12 +54,11 @@ export type getTotalCatPet = {
     }
 }
 
-export type CatActions = getCatCategories | getCatCategoryImages | getSelectedCategoryImages | getCategorySelected | getTotalCatSeen | getTotalCatDidNotPet | getTotalCatSkipped | getTotalCatPet
+export type CatActions = getSelectedCategoryImages | getCategorySelected | getTotalCatSeen | getTotalCatDidNotPet | getTotalCatSkipped | getTotalCatPet
 
 export type CatState = {
-    catsCategories: Categories[]
     selectedCategoryImages: string[]
-    categorySelected: string
+    categorySelected: Categories
     catsSeen: number
     catSkipped: number
     catDidNotPet: number

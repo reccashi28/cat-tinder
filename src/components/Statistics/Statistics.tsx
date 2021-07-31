@@ -7,8 +7,9 @@ import skip from '../../assets/Skip.svg'
 import { Box, Button, Grid, makeStyles, Typography } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { getCategorySelected } from '../../redux/actions'
+import { fetchCatsByCategory, getCategorySelected } from '../../redux/actions'
 import { AppState } from '../../types'
+import useCategories from '../../hooks/useCategories'
 
 const useStyles = makeStyles({
     root: {
@@ -46,12 +47,20 @@ function Statistics() {
     const classes = useStyles();  
     const history = useHistory();
     const dispatch = useDispatch();
-    const { catSkipped, catDidNotPet, catPetted } = useSelector( (state: AppState) => state.cats)
+    const { catSkipped, catDidNotPet, catPetted, catsSeen, categorySelected } = useSelector( (state: AppState) => state.cats)
+    const categories = useCategories();
+
+    let findCategoryIndex = categories.findIndex( category => category.id === categorySelected.id)
+    const sameCategory = categories[findCategoryIndex]
+    let refreshSelectedCategory = {
+        name: '',
+        id: null
+    }
 
     return (
         <Grid container justifyContent="center" spacing={2} alignItems='center' className={classes.root}>
             <Grid item>
-                <Typography>Cat's seen: </Typography>
+                <Typography>Cat's seen: {catsSeen} </Typography>
             </Grid>
             <Grid item container spacing={2} justifyContent="center" alignItems='center'>
                 <Grid item xs={12}>
@@ -84,9 +93,16 @@ function Statistics() {
             </Grid>
             <Grid item>
                 <Box display='flex' justifyContent='space-between' alignItems='center' flexDirection='column' mt={5}> 
-                    <Button className={classes.btnSameCategory}>RESTART IN SAME CATEGORY</Button>
+                    <Button className={classes.btnSameCategory} onClick={() => {
+                        dispatch(getCategorySelected(refreshSelectedCategory))
+                        setTimeout( () => {
+                            dispatch(fetchCatsByCategory(sameCategory.id!, sameCategory.name))
+                            history.push(`/categorydetails/${sameCategory.name}/${sameCategory.id!}`)
+                        }, 1000)
+                        
+                    }}>RESTART IN SAME CATEGORY</Button>
                     <Button className={classes.btnNewCategory} style={{ border: '2px solid' }} onClick={() => {
-                        dispatch(getCategorySelected(""))
+                        dispatch(getCategorySelected(refreshSelectedCategory))
                         history.push('/')
                     }}>SELECT NEW CATEGORY</Button>
                 </Box>

@@ -24,7 +24,7 @@ function Home() {
             </Grid>
             <Grid item container spacing={3} justifyContent='center'> 
                 { categories.map ( category => {
-                   return (<Grid item xs={12} sm={6} md={3}> 
+                   return (<Grid item xs={12} sm={6} md={3} key={category.id!}> 
                         <Category key={category.id} name={category.name} id={category.id!}/>
                     </Grid>  )
                 })}

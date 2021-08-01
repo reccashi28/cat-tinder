@@ -1,35 +1,32 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppState } from '../../types'
+import { useHistory } from 'react-router-dom'
+import clsx from 'clsx';
 
 import dontPet from '../../assets/DontPet.svg'
 import pet from '../../assets/Pet.svg'
 import skip from '../../assets/Skip.svg'
 
-
-import { Box, Button, Grid, makeStyles, Typography } from '@material-ui/core'
-import { useHistory } from 'react-router-dom'
+import { Box, Button, Card, CardActionArea, CardContent, CardMedia, Grid, makeStyles, Theme, Typography } from '@material-ui/core'
 import { getCategorySelected, getTotalCatDidNotPet, getTotalCatPet, getTotalCatSeen, getTotalCatSkipped } from '../../redux/actions'
-import useCategories from '../../hooks/useCategories'
+import FetchError from '../FetchError/FetchError'
+import { AppState } from '../../types'
 
-const useStyles = makeStyles({
-    imageContainer: {
-        position: 'relative',
-        maxWidth: 345,
-        height: 250,
-        overflow: 'hidden',
-        borderRadius: 5,
-        backgroundColor: 'black',
-    },
+
+const useStyles = makeStyles((theme: Theme) => ({
     root: {
-        maxWidth: 345,
-        height: 250,
+        maxWidth: 600,
+        [theme.breakpoints.up("sm")]: {
+            width: 600,
+          },
       },
-      media: {
-          width: '100%',
-        height: '100%',
-        borderRadius: 5,
-        objectFit: 'cover'
+    media: {
+        height: 250,
+        width:'100%',
+        minWidth: 300,
+        [theme.breakpoints.up("sm")]: {
+            height: 450
+          },
       },
       actionButton: {
           display: 'flex',
@@ -39,8 +36,30 @@ const useStyles = makeStyles({
       },
       btnName: {
         fontFamily: 'Inter',
-      }
-  });
+        textTransform: 'lowercase',
+        '&:first-letter': {
+            textTransform: 'uppercase'
+        } 
+
+      }, 
+      textDontPet: {
+        color: 'red',
+
+    },
+    textPetted: {
+        color: 'green',
+    },
+    textSkipped: {
+     color: 'gray',
+ },
+ imgIndex: {
+     color: 'gray'
+ },
+ question: {
+     marginTop: '2rem',
+     marginBottom: '2rem',
+ }
+  }));
 
 function SelectedCategory() {
     const classes = useStyles();
@@ -48,6 +67,9 @@ function SelectedCategory() {
     const dispatch = useDispatch();
     const { selectedCategoryImages, categorySelected } = useSelector( (state: AppState) => state.cats)
     const [ index, setIndex ] = useState<number>(0);
+    const txtCatDontPet = clsx(classes.btnName,classes.textDontPet)
+    const txtCatPetted = clsx(classes.btnName,classes.textPetted)
+    const txtCatSkipped = clsx(classes.btnName,classes.textSkipped)
 
     let selectedCategoryForStatisticComponent = {
         ...categorySelected,
@@ -64,28 +86,45 @@ function SelectedCategory() {
            history.push(`/statistics`)
         }
       };
+
+      if(!selectedCategoryImages){
+            return <FetchError />
+      }
   return (
-      <Box> 
-        <Box className={classes.imageContainer} boxShadow={3}> 
-            <div className={classes.root} >
-                <img
-                className={classes.media}
-                src={selectedCategoryImages[index]}
-                alt="Cats"
-                />              
-            </div>
+      <Box display='flex' justifyContent='center' alignItems='center' flexDirection='column'>
+          <Typography className={classes.question} variant='h6'>
+            Would you pet it?
+        </Typography>
+    <Card className={classes.root}>
+        
+    <CardActionArea>
+      <CardMedia
+        component="img"
+        className={classes.media}
+        image={selectedCategoryImages[index]}
+        title="Contemplative Reptile"
+      />
+      <CardContent>
+        <Box display='flex' justifyContent='center' alignItems='center'>
+            <Typography gutterBottom  component="p" className={classes.imgIndex}>
+                Cat {index + 1}/10
+            </Typography>
         </Box>
-        <Grid container spacing={3}>
-            <Grid item >
+      </CardContent>
+    </CardActionArea>
+        <Grid container spacing={3} justifyContent="space-evenly" alignItems="center">
+            <Grid item>
                 <Button size="small" color="primary" onClick={() => {
                     dispatch(getTotalCatDidNotPet(1))
                     handleNextImage()                    
                 }}>
                     <Box className={classes.actionButton}>
                         <img src={dontPet} alt="Dont Pet"/>
-                        <Typography className={classes.btnName}>Don't Pet it!</Typography>
+                        <Typography className={txtCatDontPet}>Don't Pet it!</Typography>
                     </Box>
                 </Button>
+            </Grid>
+            <Grid item>
                 <Button size="small" color="primary" onClick={() => {
                     dispatch(getTotalCatSkipped(1))
                     handleNextImage()
@@ -93,21 +132,24 @@ function SelectedCategory() {
                 } >
                     <Box className={classes.actionButton}>
                         <img src={skip} alt="Skip"/>
-                        <Typography className={classes.btnName}>Skip it!</Typography>
+                        <Typography className={txtCatSkipped}>Skip it!</Typography>
                     </Box>
                 </Button>
+            </Grid>
+            <Grid item>
                 <Button size="small" color="primary" onClick={() => {
                     dispatch(getTotalCatPet(1))
                     handleNextImage()
                 }}>
                     <Box className={classes.actionButton}>
                         <img src={pet} alt="Pet"/>
-                        <Typography className={classes.btnName}>Pet it!</Typography>
+                        <Typography className={txtCatPetted}>Pet it!</Typography>
                     </Box>
                 </Button>
             </Grid>
         </Grid>
-      </Box>
+  </Card>
+  </Box>
   );
 }
 

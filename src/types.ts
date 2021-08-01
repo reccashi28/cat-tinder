@@ -6,6 +6,7 @@ export const GET_TOTAL_CATSEEN= 'GET_TOTAL_CATSEEN'
 export const GET_TOTAL_CATDIDNOTPET= 'GET_TOTAL_CATDIDNOTPET'
 export const GET_TOTAL_CATSKIPPED= 'GET_TOTAL_CATSKIPPED'
 export const GET_TOTAL_CATPET= 'GET_TOTAL_CATPET'
+export const FETCH_REQUEST_ERROR= 'FETCH_REQUEST_ERROR'
 
 
 export type Categories = {
@@ -54,7 +55,14 @@ export type getTotalCatPet = {
     }
 }
 
-export type CatActions = getSelectedCategoryImages | getCategorySelected | getTotalCatSeen | getTotalCatDidNotPet | getTotalCatSkipped | getTotalCatPet
+export type fetchRequestError = {
+    type: typeof FETCH_REQUEST_ERROR,
+    payload: {
+        data: string
+    }
+}
+
+export type CatActions = getSelectedCategoryImages | getCategorySelected | getTotalCatSeen | getTotalCatDidNotPet | getTotalCatSkipped | getTotalCatPet | fetchRequestError
 
 export type CatState = {
     selectedCategoryImages: string[]
@@ -63,6 +71,7 @@ export type CatState = {
     catSkipped: number
     catDidNotPet: number
     catPetted: number
+    errorMessage: string
 }
 
 export type AppState = {

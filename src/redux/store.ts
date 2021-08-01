@@ -16,7 +16,8 @@ const initState: AppState = {
         catsSeen: 0,
         catSkipped: 0,
         catDidNotPet: 0,
-        catPetted: 0
+        catPetted: 0,
+        errorMessage: ""
     }
 }
 

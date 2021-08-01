@@ -1,10 +1,12 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
+import { fetchRequestError } from '../redux/actions';
 import { Categories } from '../types'
 
 function useCategories() {
-    const [categories, setCategories] = useState<Categories[]>([])
-
+    const [categories, setCategories] = useState<Categories[]>([]);
+    const dispatch = useDispatch();
     useEffect( () => {
         getData()
     }, [])
@@ -14,7 +16,7 @@ function useCategories() {
         .then( res =>  {
             setCategories(res.data)
         })
-        .catch( e => console.log(e))       
+        .catch( e => dispatch(fetchRequestError(e.message)))       
     }
 
     return categories;

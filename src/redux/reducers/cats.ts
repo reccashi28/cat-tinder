@@ -1,4 +1,4 @@
-import { CatActions, CatState, GET_CATEGORIES, GET_CATEGORIES_IMAGES, GET_CATEGORY_SELECTED, GET_SELECTED_CATEGORY_IMAGES, GET_TOTAL_CATDIDNOTPET, GET_TOTAL_CATPET, GET_TOTAL_CATSEEN, GET_TOTAL_CATSKIPPED } from "../../types";
+import { CatActions, CatState, FETCH_REQUEST_ERROR, GET_CATEGORY_SELECTED, GET_SELECTED_CATEGORY_IMAGES, GET_TOTAL_CATDIDNOTPET, GET_TOTAL_CATPET, GET_TOTAL_CATSEEN, GET_TOTAL_CATSKIPPED } from "../../types";
 
 const catsInitState: CatState = {
     selectedCategoryImages: [],
@@ -9,7 +9,8 @@ const catsInitState: CatState = {
     catsSeen: 0,
     catSkipped: 0,
     catDidNotPet: 0,
-    catPetted: 0
+    catPetted: 0,
+    errorMessage: ""
 }
 
 export default function cats ( state = catsInitState, action: CatActions): CatState {
@@ -36,6 +37,9 @@ export default function cats ( state = catsInitState, action: CatActions): CatSt
 
         case GET_TOTAL_CATSEEN: {
             return { ...state, catsSeen: state.catsSeen + action.payload.data}
+        }
+        case FETCH_REQUEST_ERROR: {
+            return { ...state, errorMessage: action.payload.data}
         }
         default: {
             return state

@@ -1,29 +1,34 @@
 import React from 'react'
-
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import useCategoryImage from '../../hooks/useCategoryImage';
-import { Box, Button } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
-import { fetchCatsByCategory } from '../../redux/actions';
 import { Link } from 'react-router-dom';
 
+import useCategoryImage from '../../hooks/useCategoryImage';
+import { fetchCatsByCategory } from '../../redux/actions';
+
+import { Box, Button, CircularProgress } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
 const useStyles = makeStyles({
-    root: {
-      flexGrow: 1,
-      fontFamily: 'Inter',
-    },
     button: {
       position: 'absolute',
       bottom: "16px",
       alignSelf: 'center',
-      textDecoration: 'none'
+      textDecoration: 'none',
+    },
+    btnCategorySelected: {
+      color: 'white',
+      backgroundColor: 'orange',
+      textTransform: 'lowercase'
     },
     categoryImg: {
       position: 'relative',
+      flexDirection: "column",
+      width: '100%',
+      height: 290,
     },
     img: {
-      width: '90%'
+      width: '100%',
+      height: '100%',
     }
    }
 );
@@ -39,16 +44,16 @@ function Category({name, id}: CategoryPropType) {
     const dispatch = useDispatch();
 
     return (
-        <div className={classes.root}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={4}>
-            <Box className={classes.categoryImg} display='flex' flexDirection='column'>
-              <img className={classes.img} src={image} alt={name} />
-              <Link to={`/categorydetails/${name}/${id}`} className={classes.button} ><Button variant='contained' onClick={() => dispatch(fetchCatsByCategory(id, name))}>{name}</Button></Link>
-            </Box>
-          </Grid>      
-        </Grid>
-      </div>
+      <>
+           {!image ? <CircularProgress  /> : 
+            
+              <Box className={classes.categoryImg} display='flex' flexWrap="wrap" flexDirection='row'>
+                <img className={classes.img} src={image} alt={name} />
+                <Link to={`/categorydetails/${name}/${id}`} className={classes.button} ><Button variant='contained' className={classes.btnCategorySelected} onClick={() => dispatch(fetchCatsByCategory(id, name))}>{name}</Button></Link>
+              </Box>
+
+          }     
+      </>
     )
 }
 

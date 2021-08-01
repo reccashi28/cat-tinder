@@ -1,3 +1,4 @@
+import { Box, Grid, Typography } from '@material-ui/core'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import logo from '../../assets/Logo.svg'
@@ -5,16 +6,20 @@ import { AppState } from '../../types'
 
 function Header() {
     const { categorySelected } = useSelector( (state: AppState) => state.cats)
+    const name = categorySelected.name!.charAt(0).toUpperCase() + categorySelected.name!.slice(1);
 
     return (
-        <div style={{height: '100px', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '10px'}}>
-            <div>
-                <img src={logo} alt="logo"/>
-            </div>
-            <div>
-                {categorySelected.name ? <h5>{">"}{categorySelected.name}</h5> : ""}
-            </div>
-        </div>
+
+        <Grid item container>
+            <Grid item >
+                <Box pt={4} mb={4}>
+                    <img src={logo} alt="logo"/>
+                </Box>
+                <Box>
+                    {categorySelected.name ? <Typography component='p'>{">"} {name}</Typography> : ""}
+                </Box>
+            </Grid>
+        </Grid>
     )
 }
 

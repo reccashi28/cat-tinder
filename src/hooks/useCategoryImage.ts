@@ -1,9 +1,13 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
+import { fetchRequestError } from '../redux/actions';
 
 
 function useCategoryImage(id: number): string {
-    const [imgUrl, setImgUrl] = useState<string>('')
+    const [imgUrl, setImgUrl] = useState<string>('');
+    const dispatch = useDispatch();
+
 
     useEffect( () => {
         getData()
@@ -15,7 +19,7 @@ function useCategoryImage(id: number): string {
                 let data: any[] = res.data
                 data.map( d => setImgUrl(d.url))
         })
-        .catch( e => console.log(e))       
+        .catch( e => dispatch(fetchRequestError(e.message)))       
     }
     return imgUrl;
 }

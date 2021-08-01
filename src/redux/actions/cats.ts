@@ -1,6 +1,6 @@
 import axios from "axios"
 import { Dispatch } from "redux"
-import { CatActions, Categories, GET_CATEGORY_SELECTED, GET_SELECTED_CATEGORY_IMAGES, GET_TOTAL_CATDIDNOTPET, GET_TOTAL_CATPET, GET_TOTAL_CATSEEN, GET_TOTAL_CATSKIPPED } from "../../types"
+import { CatActions, Categories, FETCH_REQUEST_ERROR, GET_CATEGORY_SELECTED, GET_SELECTED_CATEGORY_IMAGES, GET_TOTAL_CATDIDNOTPET, GET_TOTAL_CATPET, GET_TOTAL_CATSEEN, GET_TOTAL_CATSKIPPED } from "../../types"
 
 export const fetchCatsByCategory = (id: number, name: string) => {
     return async( dispatch: Dispatch) => {
@@ -16,7 +16,7 @@ export const fetchCatsByCategory = (id: number, name: string) => {
                dispatch(getSelectedCategoryImages(imageUrl))
                dispatch(getCategorySelected(selectedCategoryData))
             })
-            .catch( e => console.log(e, "error"))
+            .catch( e => dispatch(fetchRequestError(e.message)))
     }
 }
 
@@ -68,6 +68,15 @@ export const getTotalCatPet = (data: number): CatActions => {
 export const getTotalCatSeen = (data: number): CatActions => {
     return {
         type: GET_TOTAL_CATSEEN,
+        payload: {
+            data
+        }
+    }
+}
+
+export const fetchRequestError = (data: string): CatActions => {
+    return {
+        type: FETCH_REQUEST_ERROR,
         payload: {
             data
         }

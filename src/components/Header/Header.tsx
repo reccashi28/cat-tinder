@@ -1,8 +1,10 @@
-import { Box, Grid, Typography } from '@material-ui/core'
 import React from 'react'
 import { useSelector } from 'react-redux'
-import logo from '../../assets/Logo.svg'
+
 import { AppState } from '../../types'
+import { Box, Grid, Typography } from '@material-ui/core'
+
+import logo from '../../assets/Logo.svg'
 
 function Header() {
     const { categorySelected } = useSelector( (state: AppState) => state.cats)

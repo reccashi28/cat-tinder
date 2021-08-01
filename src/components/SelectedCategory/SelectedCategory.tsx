@@ -6,12 +6,11 @@ import clsx from 'clsx';
 import dontPet from '../../assets/DontPet.svg'
 import pet from '../../assets/Pet.svg'
 import skip from '../../assets/Skip.svg'
-
-import { Box, Button, Card, CardActionArea, CardContent, CardMedia, Grid, makeStyles, Theme, Typography } from '@material-ui/core'
-import { getCategorySelected, getTotalCatDidNotPet, getTotalCatPet, getTotalCatSeen, getTotalCatSkipped } from '../../redux/actions'
 import FetchError from '../FetchError/FetchError'
 import { AppState } from '../../types'
+import { getCategorySelected, getTotalCatDidNotPet, getTotalCatPet, getTotalCatSeen, getTotalCatSkipped } from '../../redux/actions'
 
+import { Box, Button, Card, CardActionArea, CardContent, CardMedia, Grid, makeStyles, Theme, Typography } from '@material-ui/core'
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -76,7 +75,6 @@ function SelectedCategory() {
         name: "statistics"
     }
 
-    // console.log(id, "params")
     const handleNextImage = () => {
         if(index < selectedCategoryImages.length -1) {
             setIndex(prev => (prev + 1) )
@@ -92,64 +90,63 @@ function SelectedCategory() {
       }
   return (
       <Box display='flex' justifyContent='center' alignItems='center' flexDirection='column'>
-          <Typography className={classes.question} variant='h6'>
+        <Typography className={classes.question} variant='h6'>
             Would you pet it?
         </Typography>
-    <Card className={classes.root}>
-        
-    <CardActionArea>
-      <CardMedia
-        component="img"
-        className={classes.media}
-        image={selectedCategoryImages[index]}
-        title="Contemplative Reptile"
-      />
-      <CardContent>
-        <Box display='flex' justifyContent='center' alignItems='center'>
-            <Typography gutterBottom  component="p" className={classes.imgIndex}>
-                Cat {index + 1}/10
-            </Typography>
-        </Box>
-      </CardContent>
-    </CardActionArea>
-        <Grid container spacing={3} justifyContent="space-evenly" alignItems="center">
-            <Grid item>
-                <Button size="small" color="primary" onClick={() => {
-                    dispatch(getTotalCatDidNotPet(1))
-                    handleNextImage()                    
-                }}>
-                    <Box className={classes.actionButton}>
-                        <img src={dontPet} alt="Dont Pet"/>
-                        <Typography className={txtCatDontPet}>Don't Pet it!</Typography>
+        <Card className={classes.root}>
+            <CardActionArea>
+                <CardMedia
+                    component="img"
+                    className={classes.media}
+                    image={selectedCategoryImages[index]}
+                    title="Contemplative Reptile"
+                />
+                <CardContent>
+                    <Box display='flex' justifyContent='center' alignItems='center'>
+                        <Typography gutterBottom  component="p" className={classes.imgIndex}>
+                            Cat {index + 1}/10
+                        </Typography>
                     </Box>
-                </Button>
+                </CardContent>
+            </CardActionArea>
+            <Grid container spacing={3} justifyContent="space-evenly" alignItems="center">
+                <Grid item>
+                    <Button size="small" color="primary" onClick={() => {
+                        dispatch(getTotalCatDidNotPet(1))
+                        handleNextImage()                    
+                    }}>
+                        <Box className={classes.actionButton}>
+                            <img src={dontPet} alt="Dont Pet"/>
+                            <Typography className={txtCatDontPet}>Don't Pet it!</Typography>
+                        </Box>
+                    </Button>
+                </Grid>
+                <Grid item>
+                    <Button size="small" color="primary" onClick={() => {
+                        dispatch(getTotalCatSkipped(1))
+                        handleNextImage()
+                    }
+                    } >
+                        <Box className={classes.actionButton}>
+                            <img src={skip} alt="Skip"/>
+                            <Typography className={txtCatSkipped}>Skip it!</Typography>
+                        </Box>
+                    </Button>
+                </Grid>
+                <Grid item>
+                    <Button size="small" color="primary" onClick={() => {
+                        dispatch(getTotalCatPet(1))
+                        handleNextImage()
+                    }}>
+                        <Box className={classes.actionButton}>
+                            <img src={pet} alt="Pet"/>
+                            <Typography className={txtCatPetted}>Pet it!</Typography>
+                        </Box>
+                    </Button>
+                </Grid>
             </Grid>
-            <Grid item>
-                <Button size="small" color="primary" onClick={() => {
-                    dispatch(getTotalCatSkipped(1))
-                    handleNextImage()
-                }
-                } >
-                    <Box className={classes.actionButton}>
-                        <img src={skip} alt="Skip"/>
-                        <Typography className={txtCatSkipped}>Skip it!</Typography>
-                    </Box>
-                </Button>
-            </Grid>
-            <Grid item>
-                <Button size="small" color="primary" onClick={() => {
-                    dispatch(getTotalCatPet(1))
-                    handleNextImage()
-                }}>
-                    <Box className={classes.actionButton}>
-                        <img src={pet} alt="Pet"/>
-                        <Typography className={txtCatPetted}>Pet it!</Typography>
-                    </Box>
-                </Button>
-            </Grid>
-        </Grid>
-  </Card>
-  </Box>
+        </Card>
+    </Box>
   );
 }
 

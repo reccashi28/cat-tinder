@@ -24,9 +24,11 @@ const useStyles = makeStyles({
       position: 'relative',
       flexDirection: "column",
       width: '100%',
-      height: 290,
+      height: 250,
+      backgroundColor: 'lightgray'
     },
     img: {
+      objectFit: 'contain',
       width: '100%',
       height: '100%',
     }
@@ -49,7 +51,9 @@ function Category({name, id}: CategoryPropType) {
             
               <Box className={classes.categoryImg} display='flex' flexWrap="wrap" flexDirection='row'>
                 <img className={classes.img} src={image} alt={name} />
-                <Link to={`/categorydetails/${name}/${id}`} className={classes.button} ><Button variant='contained' className={classes.btnCategorySelected} onClick={() => dispatch(fetchCatsByCategory(id, name))}>{name}</Button></Link>
+                <Link to={`/categorydetails/${name}/${id}`} className={classes.button} >
+                  <Button variant='contained' className={classes.btnCategorySelected} onClick={() => dispatch(fetchCatsByCategory(id, name))}>{name}</Button>
+                </Link>
               </Box>
 
           }     

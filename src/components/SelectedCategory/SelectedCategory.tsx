@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     root: {
         maxWidth: 600,
         [theme.breakpoints.up("sm")]: {
-            width: 600,
+            width: 500,
           },
       },
     media: {
@@ -24,25 +24,26 @@ const useStyles = makeStyles((theme: Theme) => ({
         width:'100%',
         minWidth: 300,
         [theme.breakpoints.up("sm")]: {
-            height: 450
-          },
-      },
-      actionButton: {
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center'
-      },
-      btnName: {
-        fontFamily: 'Inter',
-        textTransform: 'lowercase',
-        '&:first-letter': {
-            textTransform: 'uppercase'
-        } 
+            height: 350
+        },
+        objectFit: 'contain'
+    },
+    actionButton: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    btnName: {
+    fontFamily: 'Inter',
+    textTransform: 'lowercase',
+    '&:first-letter': {
+        textTransform: 'uppercase'
+    } 
 
-      }, 
-      textDontPet: {
-        color: 'red',
+    }, 
+    textDontPet: {
+    color: 'red',
 
     },
     textPetted: {
@@ -50,14 +51,17 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     textSkipped: {
      color: 'gray',
- },
- imgIndex: {
-     color: 'gray'
- },
- question: {
-     marginTop: '2rem',
-     marginBottom: '2rem',
- }
+    },
+    imgIndex: {
+        color: 'gray'
+    },
+    question: {
+        marginTop: '2rem',
+        marginBottom: '2rem',
+    },
+    btnContainer: {
+        marginBottom: 10,
+    }
   }));
 
 function SelectedCategory() {
@@ -109,7 +113,8 @@ function SelectedCategory() {
                     </Box>
                 </CardContent>
             </CardActionArea>
-            <Grid container spacing={3} justifyContent="space-evenly" alignItems="center">
+
+            <Grid container spacing={3} justifyContent="space-evenly" alignItems="center" className={classes.btnContainer}>
                 <Grid item>
                     <Button size="small" color="primary" onClick={() => {
                         dispatch(getTotalCatDidNotPet(1))

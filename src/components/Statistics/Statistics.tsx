@@ -54,6 +54,10 @@ const useStyles = makeStyles({
    textSkipped: {
     color: 'gray',
     fontWeight: 600,
+}, 
+txtCatSeen: {
+    marginTop: 20,
+    marginBottom: 10,
 }
   });
 
@@ -78,7 +82,7 @@ function Statistics() {
     return (
         <Grid container spacing={2} className={classes.root}>
             <Grid item>
-                <Typography>Cat's seen: {catsSeen} </Typography>
+                <Typography className={classes.txtCatSeen}>Cat's seen: {catsSeen} </Typography>
             </Grid>
             <Grid item container spacing={3} justifyContent="center" alignItems='center' sm={12}>
                 <Grid item xs={12} sm={4}>

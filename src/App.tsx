@@ -9,6 +9,7 @@ import Statistics from './components/Statistics/Statistics';
 
 import { Grid, makeStyles } from '@material-ui/core';
 import './App.css';
+import axios from 'axios';
 
 
 const useStyles = makeStyles({
@@ -16,6 +17,10 @@ const useStyles = makeStyles({
     maxWidth: 1280,
   }
 });
+
+axios.defaults.headers.common = {
+  "X-API-Key": process.env.REACT_APP_API_KEY,
+};
 
 function App() {
   const classes = useStyles();

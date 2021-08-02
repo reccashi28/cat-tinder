@@ -10,7 +10,7 @@ import FetchError from '../FetchError/FetchError'
 import { AppState } from '../../types'
 import { getCategorySelected, getTotalCatDidNotPet, getTotalCatPet, getTotalCatSeen, getTotalCatSkipped } from '../../redux/actions'
 
-import { Box, Button, Card, CardActionArea, CardContent, CardMedia, Grid, makeStyles, Theme, Typography } from '@material-ui/core'
+import { Box, Button, Card, CardActionArea, CardContent, CardMedia, CircularProgress, Dialog, Grid, makeStyles, Modal, Theme, Typography } from '@material-ui/core'
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -60,8 +60,37 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     btnContainer: {
         marginBottom: 10,
+    },
+    progress: {
+        color: 'orange'
+    },
+    dialogTxt: {
+        color: 'white'
     }
   }));
+
+type showStatisticSuspense = {
+    open: boolean;
+}
+function ShowStatisticSuspense({open}: showStatisticSuspense){
+    const classes = useStyles();
+    return (
+        <Dialog open={open} 
+        PaperProps={{
+            style: {
+              backgroundColor: 'transparent',
+              boxShadow: 'none',
+              width: 'auto',
+              height: '100',
+            },
+        }}>
+            <Box display='flex' flexDirection='column' justifyContent="space-evenly" alignItems='center'>
+                <CircularProgress className={classes.progress}   />
+                <Typography className={classes.dialogTxt}variant="h5">Loading statistics.</Typography>
+            </Box>
+        </Dialog>
+      );
+}
 
 function SelectedCategory() {
     const classes = useStyles();
@@ -72,6 +101,7 @@ function SelectedCategory() {
     const txtCatDontPet = clsx(classes.btnName,classes.textDontPet)
     const txtCatPetted = clsx(classes.btnName,classes.textPetted)
     const txtCatSkipped = clsx(classes.btnName,classes.textSkipped)
+    const [open, setOpen] = useState<boolean>(false);
 
     let selectedCategoryForStatisticComponent = {
         ...categorySelected,
@@ -82,9 +112,14 @@ function SelectedCategory() {
         if(index < selectedCategoryImages.length -1) {
             setIndex(prev => (prev + 1) )
         } else {
+            setOpen(true)
             dispatch(getTotalCatSeen(10))
             dispatch(getCategorySelected(selectedCategoryForStatisticComponent))
-           history.push(`/statistics`)
+
+            setTimeout(() => {
+                setOpen(false)
+                history.push(`/statistics`)
+            }, 2000);
         }
       };
 
@@ -150,6 +185,7 @@ function SelectedCategory() {
                 </Grid>
             </Grid>
         </Card>
+        <ShowStatisticSuspense open={open} />
     </Box>
   );
 }

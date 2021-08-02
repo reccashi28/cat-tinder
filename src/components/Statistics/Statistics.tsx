@@ -4,7 +4,7 @@ import dontPet from '../../assets/DontPet.svg'
 import pet from '../../assets/Pet.svg'
 import skip from '../../assets/Skip.svg'
 
-import { Box, Button, Grid, makeStyles, Typography } from '@material-ui/core'
+import { Box, Button,  Grid, makeStyles, Typography } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchCatsByCategory, getCategorySelected } from '../../redux/actions'
@@ -118,9 +118,11 @@ function Statistics() {
                     <Button className={classes.btnSameCategory} onClick={() => {
                         dispatch(getCategorySelected(refreshSelectedCategory))
                         dispatch(fetchCatsByCategory(sameCategory.id!, sameCategory.name))
-                        history.push(`/categorydetails/${sameCategory.name}/${sameCategory.id!}`)
-                        
-                    }}>RESTART IN SAME CATEGORY</Button>
+                        history.push(`/categorydetails/${sameCategory.name}/${sameCategory.id!}`)   
+                    }}>
+                        RESTART IN SAME CATEGORY
+                    </Button>
+
                     <Button className={classes.btnNewCategory} style={{ border: '1px solid gray' }} onClick={() => {
                         dispatch(getCategorySelected(refreshSelectedCategory))
                         history.push('/')

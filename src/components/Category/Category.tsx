@@ -1,24 +1,21 @@
 import React from 'react'
-import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import useCategoryImage from '../../hooks/useCategoryImage';
-import { fetchCatsByCategory } from '../../redux/actions';
 
 import { Box, Button, CircularProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { useDispatch } from 'react-redux';
+import { fetchCatsByCategory } from '../../redux/actions';
 
 const useStyles = makeStyles({
-    button: {
-      position: 'absolute',
-      bottom: "16px",
-      alignSelf: 'center',
-      textDecoration: 'none',
-    },
     btnCategorySelected: {
       color: 'white',
       backgroundColor: 'orange',
-      textTransform: 'lowercase'
+      textTransform: 'lowercase',
+      position: 'absolute',
+      bottom: "16px",
+      alignSelf: 'center',
     },
     categoryImg: {
       position: 'relative',
@@ -40,19 +37,22 @@ type CategoryPropType = {
 }
 
 function Category({name, id}: CategoryPropType) {
-    const classes = useStyles();  
-    const image = useCategoryImage(id);
-    const dispatch = useDispatch();
-
+    const classes = useStyles(); 
+    const dispatch = useDispatch(); 
+    const history = useHistory();
+    const image: string = useCategoryImage(id);
     return (
       <>
            {!image ? <CircularProgress  /> : 
             
               <Box className={classes.categoryImg} display='flex' flexWrap="wrap" flexDirection='row'>
                 <img className={classes.img} src={image} alt={name} />
-                <Link to={`/categorydetails/${name}/${id}`} className={classes.button} >
-                  <Button variant='contained' className={classes.btnCategorySelected} onClick={() => dispatch(fetchCatsByCategory(id, name))}>{name}</Button>
-                </Link>
+                  <Button variant='contained' className={ classes.btnCategorySelected} onClick={() => {
+                    dispatch(fetchCatsByCategory(id, name))
+                    history.push(`/categorydetails/${name}/${id!}`)  
+                  }}>
+                    {name}
+                  </Button>
               </Box>
 
           }     

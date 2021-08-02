@@ -7,17 +7,17 @@ import { Categories } from '../types'
 function useCategories() {
     const [categories, setCategories] = useState<Categories[]>([]);
     const dispatch = useDispatch();
-    useEffect( () => {
-        getData()
-    }, [])
 
-    function getData() {
-        axios.get(`https://api.thecatapi.com/v1/categories`)
-        .then( res =>  {
-            setCategories(res.data)
-        })
-        .catch( e => dispatch(fetchRequestError(e.message)))       
-    }
+    useEffect( () => {
+        (function getData1() {
+            axios.get(`https://api.thecatapi.com/v1/categories`)
+            .then( res =>  {
+                setCategories(res.data)
+            })
+            .catch( e => dispatch(fetchRequestError(e.message)))       
+        })()
+
+    }, [dispatch])
 
     return categories;
 }

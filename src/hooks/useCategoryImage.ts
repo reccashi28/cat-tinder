@@ -8,20 +8,19 @@ function useCategoryImage(id: number): string {
     const [imgUrl, setImgUrl] = useState<string>('');
     const dispatch = useDispatch();
 
-
-    useEffect( () => {
-        getData()
-    }, [])
-
-    function getData() {
-        axios.get(`https://api.thecatapi.com/v1/images/search?category_ids=${id}`)
-            .then( res => {
-                let data: any[] = res.data
-                data.map( d => setImgUrl(d.url))
-        })
-        .catch( e => dispatch(fetchRequestError(e.message)))       
-    }
+      useEffect( () => {
+        (function getData() {
+            axios.get(`https://api.thecatapi.com/v1/images/search?category_ids=${id}`)
+                .then( res => {
+                    let data: any[] = res.data
+                    data.map( d => setImgUrl(d.url))
+            })
+            .catch( e => dispatch(fetchRequestError(e.message)))       
+        })()
+    }, [dispatch, id])
+    
     return imgUrl;
 }
 
 export default useCategoryImage;
+

@@ -4,11 +4,11 @@ import { Box, Grid, Typography } from '@material-ui/core';
 import useCategories from '../../hooks/useCategories';
 import Category from '../../components/Category/Category';
 import { useSelector } from 'react-redux';
-import { AppState } from '../../types';
+import { AppState, Categories } from '../../types';
 import FetchError from '../../components/FetchError/FetchError';
 
 function Home() {
-    const categories = useCategories();
+    const categories: Categories[] = useCategories();
     const { errorMessage } = useSelector( (state: AppState) => state.cats)
 
     if(errorMessage && !categories.length) {

@@ -8,9 +8,9 @@ import pet from '../../assets/Pet.svg'
 import skip from '../../assets/Skip.svg'
 import FetchError from '../FetchError/FetchError'
 import { AppState } from '../../types'
-import { getCategorySelected, getTotalCatDidNotPet, getTotalCatPet, getTotalCatSeen, getTotalCatSkipped } from '../../redux/actions'
+import { getCategorySelected, getSelectedCategoryImages, getTotalCatDidNotPet, getTotalCatPet, getTotalCatSeen, getTotalCatSkipped } from '../../redux/actions'
 
-import { Box, Button, Card, CardActionArea, CardContent, CardMedia, CircularProgress, Dialog, Grid, makeStyles, Modal, Theme, Typography } from '@material-ui/core'
+import { Box, Button, Card, CardActionArea, CardContent, CardMedia, CircularProgress, Dialog, Grid, makeStyles, Theme, Typography } from '@material-ui/core'
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -92,6 +92,7 @@ function ShowStatisticSuspense({open}: showStatisticSuspense){
       );
 }
 
+
 function SelectedCategory() {
     const classes = useStyles();
     const history = useHistory();
@@ -115,11 +116,11 @@ function SelectedCategory() {
             setOpen(true)
             dispatch(getTotalCatSeen(10))
             dispatch(getCategorySelected(selectedCategoryForStatisticComponent))
-
             setTimeout(() => {
+                dispatch(getSelectedCategoryImages([]))
                 setOpen(false)
                 history.push(`/statistics`)
-            }, 2000);
+            }, 500);
         }
       };
 
@@ -137,7 +138,7 @@ function SelectedCategory() {
                     component="img"
                     className={classes.media}
                     image={selectedCategoryImages[index]}
-                    title="Contemplative Reptile"
+                    title="Cat Image"
                 />
                 <CardContent>
                     <Box display='flex' justifyContent='center' alignItems='center'>

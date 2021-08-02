@@ -7,9 +7,9 @@ import store from './redux/store';
 import { Provider } from 'react-redux';
 
 const WithProvider = () => (
-  <Provider store={store} >
-    <App />
-  </Provider>
+    <Provider store={store} >
+      <App />
+    </Provider>
 )
 
 ReactDOM.render(

@@ -8,7 +8,7 @@ export const fetchCatsByCategory = (id: number, name: string) => {
             .then(res => {
                 const data: any[] = res.data;
                 let imageUrl: string[] = [];
-                let selectedCategoryData = {
+                let selectedCategoryData: Categories = {
                     name: name,
                     id: id
                 }

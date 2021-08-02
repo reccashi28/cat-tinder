@@ -11,6 +11,7 @@ import { AppState } from '../../types'
 import { getCategorySelected, getSelectedCategoryImages, getTotalCatDidNotPet, getTotalCatPet, getTotalCatSeen, getTotalCatSkipped } from '../../redux/actions'
 
 import { Box, Button, Card, CardActionArea, CardContent, CardMedia, CircularProgress, Dialog, Grid, makeStyles, Theme, Typography } from '@material-ui/core'
+import PetsIcon from '@material-ui/icons/Pets';
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -34,25 +35,20 @@ const useStyles = makeStyles((theme: Theme) => ({
         justifyContent: 'center'
     },
     btnName: {
-    fontFamily: 'Inter',
-    textTransform: 'lowercase',
-    '&:first-letter': {
-        textTransform: 'uppercase'
-    } 
-
+        fontFamily: 'Inter',
+        textTransform: 'lowercase',
+        '&:first-letter': {
+            textTransform: 'uppercase'
+        } 
     }, 
     textDontPet: {
-    color: 'red',
-
+        color: 'red',
     },
     textPetted: {
         color: 'green',
     },
-    textSkipped: {
+    gray: {
      color: 'gray',
-    },
-    imgIndex: {
-        color: 'gray'
     },
     question: {
         marginTop: '2rem',
@@ -66,7 +62,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     dialogTxt: {
         color: 'white'
-    }
+    },
+    pawImg: {
+        width: '100%',
+        height: 250,
+        [theme.breakpoints.up("sm")]: {
+            height: 350
+        },
+    },
   }));
 
 type showStatisticSuspense = {
@@ -101,7 +104,7 @@ function SelectedCategory() {
     const [ index, setIndex ] = useState<number>(0);
     const txtCatDontPet = clsx(classes.btnName,classes.textDontPet)
     const txtCatPetted = clsx(classes.btnName,classes.textPetted)
-    const txtCatSkipped = clsx(classes.btnName,classes.textSkipped)
+    const txtCatSkipped = clsx(classes.btnName,classes.gray)
     const [open, setOpen] = useState<boolean>(false);
 
     let selectedCategoryForStatisticComponent = {
@@ -134,15 +137,20 @@ function SelectedCategory() {
         </Typography>
         <Card className={classes.root}>
             <CardActionArea>
-                <CardMedia
+                {!selectedCategoryImages.length ? 
+                <Box display='flex' flexDirection='column' justifyContent='center' alignItems='center' className={classes.pawImg}>
+                    <PetsIcon className={`${classes.pawImg} ${classes.gray}`} />
+                    <p>Loading image</p>
+                </Box>: <CardMedia
                     component="img"
                     className={classes.media}
                     image={selectedCategoryImages[index]}
                     title="Cat Image"
-                />
+                /> }
+               
                 <CardContent>
                     <Box display='flex' justifyContent='center' alignItems='center'>
-                        <Typography gutterBottom  component="p" className={classes.imgIndex}>
+                        <Typography gutterBottom  component="p" className={classes.gray}>
                             Cat {index + 1}/10
                         </Typography>
                     </Box>

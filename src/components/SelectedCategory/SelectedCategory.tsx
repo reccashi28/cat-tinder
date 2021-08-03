@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         [theme.breakpoints.up("sm")]: {
             height: 350
         },
+        objectFit: 'contain'
     },
     actionButton: {
         display: 'flex',

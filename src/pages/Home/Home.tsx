@@ -1,9 +1,9 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 
 import { Box, Grid, Typography } from '@material-ui/core';
 import useCategories from '../../hooks/useCategories';
 import Category from '../../components/Category/Category';
-import { useSelector } from 'react-redux';
 import { AppState, Categories } from '../../types';
 import FetchError from '../../components/FetchError/FetchError';
 

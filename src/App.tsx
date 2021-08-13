@@ -7,11 +7,24 @@ import Home from './pages/Home/Home';
 import SelectedCategory from './components/SelectedCategory/SelectedCategory';
 import Statistics from './components/Statistics/Statistics';
 
-import { Grid, makeStyles } from '@material-ui/core';
+import { createTheme, Grid, makeStyles, ThemeProvider, Typography } from '@material-ui/core';
 import './App.css';
 import axios from 'axios';
+import { orange, grey, green, red } from '@material-ui/core/colors';
 
-
+const customTheme = createTheme({
+  palette: {
+    primary: orange,
+    secondary: grey,
+    error: red,
+    success: green,
+    text: {
+      primary: grey[900],
+      secondary: '#ffffff'
+    }
+  },
+  
+})
 const useStyles = makeStyles({
   root: {
     maxWidth: 1280,
@@ -26,27 +39,28 @@ function App() {
   const classes = useStyles();
 
   return (
-    <Grid container  justifyContent='center'>
-      <Grid item xs={1} />
-        <Grid item xs={10} className={classes.root}>
-            <BrowserRouter>
-              <Header />
-                <Switch>
-                  <Route exact path="/">
-                    <Home />
-                  </Route>
-                  <Route path="/categorydetails/:name/:id">
-                    <SelectedCategory />
-                  </Route>
-                  <Route path="/statistics">
-                    <Statistics />
-                  </Route>
-              </Switch>
-            </BrowserRouter>
-        </Grid>
-      <Grid item xs={1} />
-    </Grid> 
-
+    <ThemeProvider theme={customTheme}>
+      <Grid container  justifyContent='center'>
+        <Grid item xs={1} />
+          <Grid item xs={10} className={classes.root}>
+              <BrowserRouter>
+                <Header />
+                  <Switch>
+                    <Route exact path="/">
+                      <Home />
+                    </Route>
+                    <Route path="/categorydetails/:name/:id">
+                      <SelectedCategory />
+                    </Route>
+                    <Route path="/statistics">
+                      <Statistics />
+                    </Route>
+                </Switch>
+              </BrowserRouter>
+          </Grid>
+        <Grid item xs={1} />
+      </Grid> 
+    </ThemeProvider>
   );
 }
 

@@ -3,15 +3,13 @@ import { useHistory } from 'react-router-dom';
 
 import useCategoryImage from '../../hooks/useCategoryImage';
 
-import { Box, Button, CircularProgress } from '@material-ui/core';
+import { Box, Button, CircularProgress, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch } from 'react-redux';
 import { fetchCatsByCategory } from '../../redux/actions';
 
 const useStyles = makeStyles({
     btnCategorySelected: {
-      color: 'white',
-      backgroundColor: 'orange',
       textTransform: 'lowercase',
       position: 'absolute',
       bottom: "16px",
@@ -47,11 +45,11 @@ function Category({name, id}: CategoryPropType) {
             
               <Box className={classes.categoryImg} display='flex' flexWrap="wrap" flexDirection='row'>
                 <img className={classes.img} src={image} alt={name} />
-                  <Button variant='contained' className={ classes.btnCategorySelected} onClick={() => {
+                  <Button color='primary' variant='contained' className={ classes.btnCategorySelected} onClick={() => {
                     dispatch(fetchCatsByCategory(id, name))
                     history.push(`/categorydetails/${name}/${id!}`)  
                   }}>
-                    {name}
+                    <Typography color='textSecondary'>{name}</Typography>
                   </Button>
               </Box>
 

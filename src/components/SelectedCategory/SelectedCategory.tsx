@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import clsx from 'clsx';
 
 import dontPet from '../../assets/DontPet.svg'
 import pet from '../../assets/Pet.svg'
@@ -42,15 +41,6 @@ const useStyles = makeStyles((theme: Theme) => ({
         '&:first-letter': {
             textTransform: 'uppercase'
         } 
-    }, 
-    textDontPet: {
-        color: 'red',
-    },
-    textPetted: {
-        color: 'green',
-    },
-    gray: {
-     color: 'gray',
     },
     question: {
         marginTop: '2rem',
@@ -58,12 +48,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     btnContainer: {
         marginBottom: 10,
-    },
-    progress: {
-        color: 'orange'
-    },
-    dialogTxt: {
-        color: 'white'
     },
     pawImg: {
         width: '100%',
@@ -78,7 +62,6 @@ type showStatisticSuspense = {
     open: boolean;
 }
 function ShowStatisticSuspense({open}: showStatisticSuspense){
-    const classes = useStyles();
     return (
         <Dialog open={open} 
         PaperProps={{
@@ -90,8 +73,8 @@ function ShowStatisticSuspense({open}: showStatisticSuspense){
             },
         }}>
             <Box display='flex' flexDirection='column' justifyContent="space-evenly" alignItems='center'>
-                <CircularProgress className={classes.progress}   />
-                <Typography className={classes.dialogTxt}variant="h5">Loading statistics.</Typography>
+                <CircularProgress color='primary'  />
+                <Typography color='textPrimary' variant="h5">Loading statistics.</Typography>
             </Box>
         </Dialog>
       );
@@ -104,18 +87,14 @@ function SelectedCategory() {
     const dispatch = useDispatch();
     const { selectedCategoryImages, categorySelected } = useSelector( (state: AppState) => state.cats)
     const [ index, setIndex ] = useState<number>(0);
-    const txtCatDontPet = clsx(classes.btnName,classes.textDontPet)
-    const txtCatPetted = clsx(classes.btnName,classes.textPetted)
-    const txtCatSkipped = clsx(classes.btnName,classes.gray)
     const [open, setOpen] = useState<boolean>(false);
-
     let selectedCategoryForStatisticComponent = {
         ...categorySelected,
         name: "statistics"
     }
 
     const handleNextImage = () => {
-        if(index < selectedCategoryImages.length -1) {
+        if(index === 0 || index < selectedCategoryImages.length -1) {
             setIndex(prev => (prev + 1) )
         } else {
             setOpen(true)
@@ -141,7 +120,7 @@ function SelectedCategory() {
             <CardActionArea>
                 {!selectedCategoryImages.length ? 
                 <Box display='flex' flexDirection='column' justifyContent='center' alignItems='center' className={classes.pawImg}>
-                    <PetsIcon className={`${classes.pawImg} ${classes.gray}`} />
+                    <PetsIcon className={`${classes.pawImg}`} color='action' />
                     <p>Loading image</p>
                 </Box>: <CardMedia
                     component="img"
@@ -152,13 +131,12 @@ function SelectedCategory() {
                
                 <CardContent>
                     <Box display='flex' justifyContent='center' alignItems='center'>
-                        <Typography gutterBottom  component="p" className={classes.gray}>
+                        <Typography gutterBottom  component="p" color='textSecondary'>
                             Cat {index + 1}/10
                         </Typography>
                     </Box>
                 </CardContent>
             </CardActionArea>
-
             <Grid container spacing={3} justifyContent="space-evenly" alignItems="center" className={classes.btnContainer}>
                 <Grid item>
                     <Button size="small" color="primary" onClick={() => {
@@ -167,7 +145,7 @@ function SelectedCategory() {
                     }}>
                         <Box className={classes.actionButton}>
                             <img src={dontPet} alt="Dont Pet"/>
-                            <Typography className={txtCatDontPet}>Don't Pet it!</Typography>
+                            <Typography className={classes.btnName} color='error'>Don't Pet it!</Typography>
                         </Box>
                     </Button>
                 </Grid>
@@ -179,7 +157,7 @@ function SelectedCategory() {
                     } >
                         <Box className={classes.actionButton}>
                             <img src={skip} alt="Skip"/>
-                            <Typography className={txtCatSkipped}>Skip it!</Typography>
+                            <Typography className={classes.btnName} color='secondary'>Skip it!</Typography>
                         </Box>
                     </Button>
                 </Grid>
@@ -190,7 +168,7 @@ function SelectedCategory() {
                     }}>
                         <Box className={classes.actionButton}>
                             <img src={pet} alt="Pet"/>
-                            <Typography className={txtCatPetted}>Pet it!</Typography>
+                            <Typography className={classes.btnName} color='secondary'>Pet it!</Typography>
                         </Box>
                     </Button>
                 </Grid>

@@ -41,7 +41,7 @@ function Category({name, id}: CategoryPropType) {
     const image: string = useCategoryImage(id);
     return (
       <>
-           {!image ? <CircularProgress  /> : 
+           {!image ? <CircularProgress color='primary' /> : 
             
               <Box className={classes.categoryImg} display='flex' flexWrap="wrap" flexDirection='row'>
                 <img className={classes.img} src={image} alt={name} />
@@ -49,7 +49,7 @@ function Category({name, id}: CategoryPropType) {
                     dispatch(fetchCatsByCategory(id, name))
                     history.push(`/categorydetails/${name}/${id!}`)  
                   }}>
-                    <Typography color='textSecondary'>{name}</Typography>
+                    <Typography color='textPrimary'>{name}</Typography>
                   </Button>
               </Box>
 

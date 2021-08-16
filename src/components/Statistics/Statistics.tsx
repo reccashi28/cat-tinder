@@ -11,8 +11,6 @@ import { fetchCatsByCategory, getCategorySelected } from '../../redux/actions'
 import { AppState } from '../../types'
 import useCategories from '../../hooks/useCategories'
 
-import clsx from 'clsx';
-
 const useStyles = makeStyles({
     root: {
         fontFamily: 'Inter',
@@ -30,31 +28,30 @@ const useStyles = makeStyles({
    },
    btnSameCategory: {
        backgroundColor: 'orange',
-       color: 'white',
        fontFamily: 'Inter',
        width: '95%',
+       color: 'white',
+       '&:hover' : {
+        color: 'orange'
+    }
    },
    btnNewCategory: {
        borderColor: 'black',
        fontFamily: 'Inter',
        width: '95%',
-       margin: 10
+       margin: 10,
+       color: 'black',
+       backgroundColor: 'white',
+       '&:hover' : {
+           color: 'orange'
+       }
    },
    text: {
     fontFamily: 'Inter',
    },
-   textDontPet: {
-       color: 'red',
-       fontWeight: 600,
-   },
    textPetted: {
        color: 'green',
-       fontWeight: 600,
    },
-   textSkipped: {
-    color: 'gray',
-    fontWeight: 600,
-}, 
 txtCatSeen: {
     marginTop: 20,
     marginBottom: 10,
@@ -67,9 +64,6 @@ function Statistics() {
     const dispatch = useDispatch();
     const { catSkipped, catDidNotPet, catPetted, catsSeen, categorySelected } = useSelector( (state: AppState) => state.cats)
     const categories = useCategories();
-    const txtCatDontPet = clsx(classes.text,classes.textDontPet)
-    const txtCatPetted = clsx(classes.text,classes.textPetted)
-    const txtCatSkipped = clsx(classes.text,classes.textSkipped)
 
 
     let findCategoryIndex = categories.findIndex( category => category.id! === categorySelected.id!)
@@ -89,7 +83,7 @@ function Statistics() {
                     <Box className={classes.statsBoxes} border={1} borderColor="grey.500" >
                         <img src={dontPet} alt="Didn't Pet"/>
                         <Box display='flex'  alignItems='flex-end' flexDirection='column' justifyContent="center" > 
-                                <Typography  className={txtCatDontPet} > {catDidNotPet}</Typography>
+                                <Typography component='div' color='error'> <Box fontWeight={900}> {catDidNotPet} </Box></Typography>
                                 <Typography className={classes.text} > Cats you didn't pet</Typography>
                         </Box>
                     </Box>
@@ -98,7 +92,7 @@ function Statistics() {
                     <Box className={classes.statsBoxes}  border={1} borderColor="grey.500">
                         <img src={skip} alt="Didn't Pet"/>
                         <Box display='flex' alignItems='flex-end' flexDirection='column'> 
-                            <Typography className={txtCatSkipped}> {catSkipped}</Typography>
+                            <Typography className={classes.text} component='div' color='secondary'> <Box fontWeight={900}>{catSkipped}</Box></Typography>
                             <Typography className={classes.text} >Cats you skipped</Typography>
                         </Box>
                     </Box>
@@ -107,7 +101,7 @@ function Statistics() {
                     <Box className={classes.statsBoxes}  border={1} borderColor="grey.500">
                         <img src={pet} alt="Didn't Pet"/>
                         <Box display='flex' alignItems='flex-end' flexDirection='column'> 
-                            <Typography className={txtCatPetted} > {catPetted}</Typography>
+                            <Typography className={classes.textPetted} component='div'> <Box fontWeight={900}>{catPetted} </Box></Typography>
                             <Typography className={classes.text} >Cats you petted</Typography>
                         </Box>
                     </Box>
@@ -115,18 +109,19 @@ function Statistics() {
             </Grid>
             <Grid item container justifyContent='center'>
                 <Box display='flex' justifyContent='space-between' alignItems='center' flexDirection='column' mt={5}> 
-                    <Button className={classes.btnSameCategory} onClick={() => {
+                    <Button  className={classes.btnSameCategory} onClick={() => {
                         dispatch(getCategorySelected(refreshSelectedCategory))
                         dispatch(fetchCatsByCategory(sameCategory.id!, sameCategory.name))
                         history.push(`/categorydetails/${sameCategory.name}/${sameCategory.id!}`)   
                     }}>
-                        RESTART IN SAME CATEGORY
+                       RESTART IN SAME CATEGORY
                     </Button>
 
                     <Button className={classes.btnNewCategory} style={{ border: '1px solid gray' }} onClick={() => {
                         dispatch(getCategorySelected(refreshSelectedCategory))
                         history.push('/')
-                    }}>SELECT NEW CATEGORY</Button>
+                    }}>SELECT NEW CATEGORY
+                    </Button>
                 </Box>
             </Grid>
         </Grid>

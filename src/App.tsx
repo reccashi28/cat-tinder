@@ -7,7 +7,7 @@ import Home from './pages/Home/Home';
 import SelectedCategory from './components/SelectedCategory/SelectedCategory';
 import Statistics from './components/Statistics/Statistics';
 
-import { createTheme, Grid, makeStyles, ThemeProvider, Typography } from '@material-ui/core';
+import { createTheme, Grid, makeStyles, ThemeProvider } from '@material-ui/core';
 import './App.css';
 import axios from 'axios';
 import { orange, grey, green, red } from '@material-ui/core/colors';
@@ -18,12 +18,15 @@ const customTheme = createTheme({
     secondary: grey,
     error: red,
     success: green,
+    info: {
+      main: grey[400]
+    },
     text: {
-      primary: grey[900],
-      secondary: '#ffffff'
-    }
+      primary: '#ffffff',
+      secondary: grey[500]
+    },
+    
   },
-  
 })
 const useStyles = makeStyles({
   root: {

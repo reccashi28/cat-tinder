@@ -50,7 +50,7 @@ const useStyles = makeStyles({
     fontFamily: 'Inter',
    },
    textPetted: {
-       color: '#4caf50',
+       color: '#43a047',
    },
 txtCatSeen: {
     marginTop: 20,

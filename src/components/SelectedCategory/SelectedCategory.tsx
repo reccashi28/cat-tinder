@@ -56,6 +56,9 @@ const useStyles = makeStyles((theme: Theme) => ({
             height: 350
         },
     },
+    textPetit: {
+        color: '#43a047'
+    }
   }));
 
 type showStatisticSuspense = {
@@ -168,7 +171,7 @@ function SelectedCategory() {
                     }}>
                         <Box className={classes.actionButton}>
                             <img src={pet} alt="Pet"/>
-                            <Typography className={classes.btnName} color='secondary'>Pet it!</Typography>
+                            <Typography className={`${classes.btnName} ${classes.textPetit}`} >Pet it!</Typography>
                         </Box>
                     </Button>
                 </Grid>

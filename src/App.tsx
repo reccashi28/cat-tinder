@@ -17,7 +17,9 @@ const customTheme = createTheme({
     primary: orange,
     secondary: grey,
     error: red,
-    success: green,
+    success: {
+      main: green[100],
+    },
     info: {
       main: grey[400]
     },

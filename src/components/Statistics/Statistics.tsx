@@ -50,7 +50,7 @@ const useStyles = makeStyles({
     fontFamily: 'Inter',
    },
    textPetted: {
-       color: 'green',
+       color: '#4caf50',
    },
 txtCatSeen: {
     marginTop: 20,
@@ -83,7 +83,7 @@ function Statistics() {
                     <Box className={classes.statsBoxes} border={1} borderColor="grey.500" >
                         <img src={dontPet} alt="Didn't Pet"/>
                         <Box display='flex'  alignItems='flex-end' flexDirection='column' justifyContent="center" > 
-                                <Typography component='div' color='error'> <Box fontWeight={900}> {catDidNotPet} </Box></Typography>
+                                <Typography component='div' color='error'> <Box fontSize='h5.fontSize' fontWeight={900}> {catDidNotPet} </Box></Typography>
                                 <Typography className={classes.text} > Cats you didn't pet</Typography>
                         </Box>
                     </Box>
@@ -92,7 +92,7 @@ function Statistics() {
                     <Box className={classes.statsBoxes}  border={1} borderColor="grey.500">
                         <img src={skip} alt="Didn't Pet"/>
                         <Box display='flex' alignItems='flex-end' flexDirection='column'> 
-                            <Typography className={classes.text} component='div' color='secondary'> <Box fontWeight={900}>{catSkipped}</Box></Typography>
+                            <Typography className={classes.text} component='div' color='secondary'> <Box fontSize='h5.fontSize' fontWeight={900}>{catSkipped}</Box></Typography>
                             <Typography className={classes.text} >Cats you skipped</Typography>
                         </Box>
                     </Box>
@@ -101,7 +101,7 @@ function Statistics() {
                     <Box className={classes.statsBoxes}  border={1} borderColor="grey.500">
                         <img src={pet} alt="Didn't Pet"/>
                         <Box display='flex' alignItems='flex-end' flexDirection='column'> 
-                            <Typography className={classes.textPetted} component='div'> <Box fontWeight={900}>{catPetted} </Box></Typography>
+                            <Typography className={classes.textPetted} component='div'> <Box fontSize='h5.fontSize' fontWeight={900}>{catPetted} </Box></Typography>
                             <Typography className={classes.text} >Cats you petted</Typography>
                         </Box>
                     </Box>

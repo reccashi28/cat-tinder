@@ -29,6 +29,9 @@ const customTheme = createTheme({
     },
     
   },
+  typography: {
+    fontSize: 12
+  }
 })
 const useStyles = makeStyles({
   root: {

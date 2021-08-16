@@ -29,16 +29,18 @@ const useStyles = makeStyles({
    btnSameCategory: {
        backgroundColor: 'orange',
        fontFamily: 'Inter',
-       width: '95%',
+       width: '100%',
+       padding: 15,
        color: 'white',
        '&:hover' : {
-        color: 'orange'
+        backgroundColor: 'black'
     }
    },
    btnNewCategory: {
        borderColor: 'black',
        fontFamily: 'Inter',
-       width: '95%',
+       width: '100%',
+       padding: 15,
        margin: 10,
        color: 'black',
        backgroundColor: 'white',
@@ -48,6 +50,7 @@ const useStyles = makeStyles({
    },
    text: {
     fontFamily: 'Inter',
+    fontSize: 12
    },
    textPetted: {
        color: '#43a047',
@@ -114,13 +117,14 @@ function Statistics() {
                         dispatch(fetchCatsByCategory(sameCategory.id!, sameCategory.name))
                         history.push(`/categorydetails/${sameCategory.name}/${sameCategory.id!}`)   
                     }}>
-                       RESTART IN SAME CATEGORY
+                       <Typography> RESTART IN SAME CATEGORY</Typography>
                     </Button>
 
                     <Button className={classes.btnNewCategory} style={{ border: '1px solid gray' }} onClick={() => {
                         dispatch(getCategorySelected(refreshSelectedCategory))
                         history.push('/')
-                    }}>SELECT NEW CATEGORY
+                    }}>
+                        <Typography>SELECT NEW CATEGORY</Typography>
                     </Button>
                 </Box>
             </Grid>

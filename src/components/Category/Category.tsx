@@ -49,7 +49,7 @@ function Category({name, id}: CategoryPropType) {
                     dispatch(fetchCatsByCategory(id, name))
                     history.push(`/categorydetails/${name}/${id!}`)  
                   }}>
-                    <Typography color='textPrimary'>{name}</Typography>
+                    <Typography component='div' color='textPrimary'> <Box fontWeight='fontWeightBold' fontSize='h6.fontSize'>{name}</Box></Typography>
                   </Button>
               </Box>
 

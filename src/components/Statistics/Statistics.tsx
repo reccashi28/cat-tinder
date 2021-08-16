@@ -79,7 +79,7 @@ function Statistics() {
     return (
         <Grid container spacing={2} className={classes.root}>
             <Grid item>
-                <Typography className={classes.txtCatSeen}>Cat's seen: {catsSeen} </Typography>
+                <Typography className={classes.txtCatSeen}>Cats seen: {catsSeen} </Typography>
             </Grid>
             <Grid item container spacing={3} justifyContent="center" alignItems='center' sm={12}>
                 <Grid item xs={12} sm={4}>
